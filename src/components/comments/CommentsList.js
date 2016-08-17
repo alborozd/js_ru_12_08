@@ -15,9 +15,10 @@ class CommentsList extends Component {
 
     render() {
         let commentsList = null;
+        const { comments } = this.props;
 
-        if (this.props.comments) {
-            commentsList = this.props.comments
+        if (comments && comments.length > 0) {
+            commentsList = comments
                     .map(comment => <li key={comment.id}><Comment comment={comment} /><hr /></li>)
         } else {
             commentsList = <div>Sorry, no comments</div>
@@ -35,8 +36,6 @@ class CommentsList extends Component {
         } else {
             message = "Show comments";
         }
-
-         message = this.state.commentsVisible ? "Hide comments" : "Show Comments";
 
         return (
             <div>
