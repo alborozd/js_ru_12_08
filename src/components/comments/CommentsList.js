@@ -36,7 +36,7 @@ class CommentsList extends Component {
         } else {
             message = "Show comments";
         }
-
+        //все хорошо, но не пиши много кода в JSX, вынеси эту функцию в метод
         return (
             <div>
                 <h4 onClick={() => this.setState({ commentsVisible: !this.state.commentsVisible }) }>{message}</h4>
