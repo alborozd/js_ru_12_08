@@ -3,5 +3,6 @@ import { render } from 'react-dom'
 import { articles } from './fixtures'
 
 import ArticleList from './components/ArticleList'
+//import ArticleList from './components/ArticleListOld'
 
 render(<ArticleList articles = {articles} />, document.getElementById('container'))

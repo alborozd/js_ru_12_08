@@ -22,4 +22,10 @@ class CommentList extends Component {
     }
 }
 
+CommentList.propTypes = {
+    comments: PropTypes.object,
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func.isRequired
+}
+
 export default toggleOpen(CommentList)
