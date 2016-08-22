@@ -18,7 +18,7 @@ class ArticleList extends Component {
         )
     }
 }
-
+//articles: PropTpes.array забыл. В остальном все хорошо
 ArticleList.propTypes = {
     toggleOpen: PropTypes.func.isRequired,
     openedElement: PropTypes.number
