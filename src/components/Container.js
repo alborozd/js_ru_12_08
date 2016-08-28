@@ -7,6 +7,7 @@ import DaypickerContainer from './DaypickerContainer'
 import Counter from './Counter'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
+import { filterArticles } from '../AC/articles'
 
 class Container extends Component {
     static propTypes = {
@@ -14,7 +15,9 @@ class Container extends Component {
     };
 
     state = {
-        selected: null
+        selected: null,
+        from: null, 
+        to: null
     }
 
     render() {
@@ -27,7 +30,7 @@ class Container extends Component {
                 <Counter />
                 <ArticleList articles = {this.props.articles} />
                 <Select options = {options} value={this.state.selected} onChange = {this.handleChange} multi={true}/>
-                <DaypickerContainer />
+                <DaypickerContainer onChange = {this.onDateChange} />
                 <JqueryComponent items = {this.props.articles} ref={this.getJQ}/>
             </div>
         )
@@ -38,15 +41,27 @@ class Container extends Component {
         console.log('---', findDOMNode(ref))
     }
 
+    onDateChange(from, to) {
+        this.setState({
+            from: from,
+            to: to
+        });
+
+        this.props.filterArticles(this.state.selected, this.state.from, this.state.to);
+    }
+
     handleChange = (selected) => {
+
         this.setState({
             selected
-        })
+        });
+        //console.log("selected === ", selected);
+        var idsToFilter = selected.map(item => item.value);
+        this.props.filterArticles(idsToFilter, this.state.from, this.state.to)   
     }
 }
 
 export default connect((state) => {
     const { articles } = state
     return { articles }
-}
-)(Container)
+}, { filterArticles })(Container)
