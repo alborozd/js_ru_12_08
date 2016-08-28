@@ -1,8 +1,12 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { articles } from './fixtures'
+import { Provider } from 'react-redux'
+import store from './store'
 
-import ArticleList from './components/ArticleList'
-//import ArticleList from './components/ArticleListOld'
+import Container from './components/Container'
 
-render(<ArticleList articles = {articles} />, document.getElementById('container'))
+render(
+    <Provider store = {store}>
+        <Container />
+    </Provider>
+    , document.getElementById('container'))

@@ -1,14 +1,22 @@
 import React, { Component, PropTypes } from 'react'
 import Article from './Article'
-import toggleOpen from "../decorators/toggleOpenById";
+import accordion from '../decorators/accordion'
 
 class ArticleList extends Component {
+    static propTypes = {
+        articles: PropTypes.array.isRequired,
+        //from accordion decorator
+        toggleOpenItem: PropTypes.func.isRequired,
+        isOpenItem: PropTypes.func.isRequired
+    }
+
     render() {
-        const articleItems = this.props.articles.map(articleObject =>
+        const { articles, toggleOpenItem, isOpenItem } = this.props
+        const articleItems = articles.map(articleObject =>
             <li key = {articleObject.id}>
                 <Article article = {articleObject}
-                    isOpen = {this.props.openedElement === articleObject.id}
-                    toggleOpen = {this.props.toggleOpen(articleObject.id)}
+                    isOpen = {isOpenItem(articleObject.id)}
+                    toggleOpen = {toggleOpenItem(articleObject.id)}
                 />
             </li>)
         return (
@@ -19,9 +27,4 @@ class ArticleList extends Component {
     }
 }
 
-ArticleList.propTypes = {
-    toggleOpen: PropTypes.func.isRequired,
-    openedElement: PropTypes.number
-}
-
-export default toggleOpen(ArticleList)
+export default accordion(ArticleList)
