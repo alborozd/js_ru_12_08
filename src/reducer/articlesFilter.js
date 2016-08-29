@@ -2,6 +2,9 @@ import { FILTER_ARTICLES } from "../constants";
 
 export default (articles = [], action) => {
     const { type, payload, response, error } = action;
+    //ты как инициализировал его пустым массивом, так никогда в него ничего и не записуешь. Это другая часть стора, она независима от articles
+    //Сдесь надо было просто сохранять значения фильтров, вместо того, что б держать их в стейте.
+    //Саму фильтрацию выполнять отдельно
     console.log('reduceR FILTER ATrticles: ', articles);
 
     if (type === FILTER_ARTICLES) {
