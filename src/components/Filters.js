@@ -8,11 +8,12 @@ import { changeSelectedFilter, changeDateFilter } from '../AC/filters'
 class Filters extends Component {
     render() {
         const { articles, filters, changeDateFilter } = this.props
-        const options = articles.map(article => ({
+        const options = articles.toJS().map(article => ({
             label: article.title,
             value: article.id
         }))
-
+        console.log(options);
+        
         return (
             <div>
                 <Select options = {options} value={filters.get('selected')} onChange = {this.handleChange} multi={true}/>

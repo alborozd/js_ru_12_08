@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import CommentCount from './CommentCount'
+import CommentForm from "./CommentForm"
+import {addComment} from "../AC/comments"
+import {addCommentToArticle} from "../AC/articles"
+import {connect} from "react-redux"
 
 class CommentList extends Component {
     static propTypes = {
@@ -25,8 +29,9 @@ class CommentList extends Component {
 */
 
     render() {
-        const { comments, isOpen, toggleOpen } = this.props
-
+        const { comments, isOpen, toggleOpen, articleId } = this.props
+        console.log('comments ----', comments);
+        
         if (!comments || !comments.length) return <p>No comments yet</p>
         const toggleButton = <a href="#" onClick = {toggleOpen}>{isOpen ? 'hide' : 'show'} comments.
             <CommentCount count = {comments.length}/>
@@ -39,16 +44,25 @@ class CommentList extends Component {
         return (
             <div>
                 {toggleButton}
+                <CommentForm onSubmit={(comment) => this.submitComment(comment)}/>
                 <ul>{commentItems}</ul>
             </div>
         )
     }
+
+    submitComment(comment) {
+        //console.log(comment);
+        console.log('submiting...');
+        
+        this.props.addComment(comment, this.props.articleId);
+       // this.props.addCommentToArticle()
+    }
 }
 
-CommentList.propTypes = {
-    comments: PropTypes.object,
-    isOpen: PropTypes.bool,
-    toggleOpen: PropTypes.func.isRequired
-}
+export default connect((state, props) => {
+    console.log(state.comments.toJS());
+    
+    return props
+}, { addComment, addCommentToArticle })(toggleOpen(CommentList))
 
-export default toggleOpen(CommentList)
+//export default toggleOpen(CommentList)
