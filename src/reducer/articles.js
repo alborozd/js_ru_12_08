@@ -23,6 +23,7 @@ export default (articles = defaultArticles, action) => {
                 articles.findIndex((item) => item.get("id") == payload.articleId),
                 (item) => {
                     console.log(item)
+                    //можно было сделать comments = List([]), было бы просто return item.comments.push(commentId)
                     return item.set("comments", item.get("comments").concat([action.commentId]))
                 }
             )
